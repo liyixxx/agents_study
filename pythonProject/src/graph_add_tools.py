@@ -1,3 +1,8 @@
+"""
+langgraph学习,添加工具:
+https://langgraph.com.cn/tutorials/get-started/2-add-tools/index.html#8-ask-the-bot-questions
+"""
+
 from typing import Annotated
 
 from typing_extensions import TypedDict
@@ -6,11 +11,6 @@ from langgraph.graph import StateGraph
 from langchain_tavily import TavilySearch
 from langchain_deepseek import ChatDeepSeek
 from langgraph.prebuilt import ToolNode, tools_condition
-
-"""
-langgraph学习,添加工具: 
-https://langgraph.com.cn/tutorials/get-started/2-add-tools/index.html#8-ask-the-bot-questions
-"""
 
 # 定义状态类型,包含消息列表
 class State(TypedDict):
