@@ -59,3 +59,7 @@ events = graph.stream(
 )
 for event in events:
     event["messages"][-1].pretty_print()
+
+
+shapshot = graph.get_state(config)
+print(shapshot)
