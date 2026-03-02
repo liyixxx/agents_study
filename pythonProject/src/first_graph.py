@@ -5,6 +5,11 @@ from typing_extensions import TypedDict
 from langgraph.graph import StateGraph
 from langgraph.graph.message import add_messages
 
+"""
+langgraph学习, 基础使用:
+https://langgraph.com.cn/tutorials/get-started/1-build-basic-chatbot/index.html
+"""
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 
