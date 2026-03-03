@@ -1,6 +1,6 @@
 """
 langgraph学习, 记忆:
-https://langgraph.com.cn/tutorials/get-started/3-add-memory/index.html#1-create-a-memorysaver-checkpointer
+https://langgraph.com.cn/tutorials/get-started/3-add-memory/index.html
 
 langgraph 的记忆采取检查点的设计思路,而非传统的记忆窗口。可以保存完整的置校状态,支持恢复和调式。
 """
