@@ -1,0 +1,235 @@
+D:\workspace-python\agents_graph\pythonProject\.venv\Scripts\python.exe D:\workspace-python\agents_graph\pythonProject\src\agentic_ai\simple_agentic.py
+================================ Human Message =================================
+
+请查询LangGraph发布时间，生成报告，并在最终交付前让human review一次。
+================================== Ai Message ==================================
+
+调用工具：fetch_business_data
+Tool Calls:
+  fetch_business_data (manual_fetch_business_data_8ca20b9f)
+ Call ID: manual_fetch_business_data_8ca20b9f
+  Args:
+    requirement: 请查询LangGraph发布时间，生成报告，并在最终交付前让human review一次。
+================================= Tool Message =================================
+Name: fetch_business_data
+
+已获取数据：LangGraph发布时间：2024年1月17日；所属公司：LangChain；核心特性：状态管理、工具调用、循环执行、人机协同。
+================================== Ai Message ==================================
+
+调用工具：save_draft_report
+Tool Calls:
+  save_draft_report (manual_save_draft_report_312a7f7b)
+ Call ID: manual_save_draft_report_312a7f7b
+  Args:
+    draft_report: # LangGraph发布报告（草案）
+
+## 一、背景
+LangGraph是由人工智能框架开发公司LangChain于2024年1月17日正式发布的新一代工具库。该产品旨在解决复杂AI工作流中的状态管理与任务协调问题，标志着LangChain在构建可编程AI系统领域迈出重要一步。
+
+## 二、核心特性分析
+1. **状态管理机制**：提供可追踪的对话与任务状态维护能力
+2. **工具调用集成**：支持灵活扩展外部工具与API连接
+3. **循环执行架构**：实现多步骤任务的自动化迭代处理
+4. **人机协同设计**：内置人工干预节点，支持混合智能工作流
+
+## 三、市场意义
+LangGraph填补了当前AI开发中复杂工作流编排的技术空白，其发布将显著降低构建具备记忆、推理与交互能力的AI应用门槛。该框架特别适用于需要多步骤决策、动态路径调整的商用场景。
+
+## 四、结论建议
+建议开发团队优先评估其在复杂对话系统、自动化流程引擎等场景的应用潜力，同时关注其与现有LangChain生态的兼容性。该技术有望成为企业级AI解决方案的重要基础设施组件。
+
+---
+**请审阅以上报告草案，确认信息准确性及结构完整性后，我将生成最终交付版本。**
+================================= Tool Message =================================
+Name: save_draft_report
+
+报告草稿已保存
+================================== Ai Message ==================================
+
+调用工具：check_report_quality
+Tool Calls:
+  check_report_quality (manual_check_report_quality_ab42900f)
+ Call ID: manual_check_report_quality_ab42900f
+  Args:
+    draft_report: # LangGraph发布报告（草案）
+
+## 一、背景
+LangGraph是由人工智能框架开发公司LangChain于2024年1月17日正式发布的新一代工具库。该产品旨在解决复杂AI工作流中的状态管理与任务协调问题，标志着LangChain在构建可编程AI系统领域迈出重要一步。
+
+## 二、核心特性分析
+1. **状态管理机制**：提供可追踪的对话与任务状态维护能力
+2. **工具调用集成**：支持灵活扩展外部工具与API连接
+3. **循环执行架构**：实现多步骤任务的自动化迭代处理
+4. **人机协同设计**：内置人工干预节点，支持混合智能工作流
+
+## 三、市场意义
+LangGraph填补了当前AI开发中复杂工作流编排的技术空白，其发布将显著降低构建具备记忆、推理与交互能力的AI应用门槛。该框架特别适用于需要多步骤决策、动态路径调整的商用场景。
+
+## 四、结论建议
+建议开发团队优先评估其在复杂对话系统、自动化流程引擎等场景的应用潜力，同时关注其与现有LangChain生态的兼容性。该技术有望成为企业级AI解决方案的重要基础设施组件。
+
+---
+**请审阅以上报告草案，确认信息准确性及结构完整性后，我将生成最终交付版本。**
+================================= Tool Message =================================
+Name: check_report_quality
+
+报告检测结果:不达标：LangGraph报告缺少发布时间
+================================== Ai Message ==================================
+
+调用工具：human_review_report
+Tool Calls:
+  human_review_report (manual_human_review_report_0a907740)
+ Call ID: manual_human_review_report_0a907740
+  Args:
+    draft_report: # LangGraph发布报告（草案）
+
+## 一、背景
+LangGraph是由人工智能框架开发公司LangChain于2024年1月17日正式发布的新一代工具库。该产品旨在解决复杂AI工作流中的状态管理与任务协调问题，标志着LangChain在构建可编程AI系统领域迈出重要一步。
+
+## 二、核心特性分析
+1. **状态管理机制**：提供可追踪的对话与任务状态维护能力
+2. **工具调用集成**：支持灵活扩展外部工具与API连接
+3. **循环执行架构**：实现多步骤任务的自动化迭代处理
+4. **人机协同设计**：内置人工干预节点，支持混合智能工作流
+
+## 三、市场意义
+LangGraph填补了当前AI开发中复杂工作流编排的技术空白，其发布将显著降低构建具备记忆、推理与交互能力的AI应用门槛。该框架特别适用于需要多步骤决策、动态路径调整的商用场景。
+
+## 四、结论建议
+建议开发团队优先评估其在复杂对话系统、自动化流程引擎等场景的应用潜力，同时关注其与现有LangChain生态的兼容性。该技术有望成为企业级AI解决方案的重要基础设施组件。
+
+---
+**请审阅以上报告草案，确认信息准确性及结构完整性后，我将生成最终交付版本。**
+    check_result: 不达标：LangGraph报告缺少发布时间
+    review_round: 0
+================================== Ai Message ==================================
+
+调用工具：human_review_report
+Tool Calls:
+  human_review_report (manual_human_review_report_0a907740)
+ Call ID: manual_human_review_report_0a907740
+  Args:
+    draft_report: # LangGraph发布报告（草案）
+
+## 一、背景
+LangGraph是由人工智能框架开发公司LangChain于2024年1月17日正式发布的新一代工具库。该产品旨在解决复杂AI工作流中的状态管理与任务协调问题，标志着LangChain在构建可编程AI系统领域迈出重要一步。
+
+## 二、核心特性分析
+1. **状态管理机制**：提供可追踪的对话与任务状态维护能力
+2. **工具调用集成**：支持灵活扩展外部工具与API连接
+3. **循环执行架构**：实现多步骤任务的自动化迭代处理
+4. **人机协同设计**：内置人工干预节点，支持混合智能工作流
+
+## 三、市场意义
+LangGraph填补了当前AI开发中复杂工作流编排的技术空白，其发布将显著降低构建具备记忆、推理与交互能力的AI应用门槛。该框架特别适用于需要多步骤决策、动态路径调整的商用场景。
+
+## 四、结论建议
+建议开发团队优先评估其在复杂对话系统、自动化流程引擎等场景的应用潜力，同时关注其与现有LangChain生态的兼容性。该技术有望成为企业级AI解决方案的重要基础设施组件。
+
+---
+**请审阅以上报告草案，确认信息准确性及结构完整性后，我将生成最终交付版本。**
+    check_result: 不达标：LangGraph报告缺少发布时间
+    review_round: 0
+
+===== 人工审核阶段 =====
+================================== Ai Message ==================================
+
+调用工具：human_review_report
+Tool Calls:
+  human_review_report (manual_human_review_report_0a907740)
+ Call ID: manual_human_review_report_0a907740
+  Args:
+    draft_report: # LangGraph发布报告（草案）
+
+## 一、背景
+LangGraph是由人工智能框架开发公司LangChain于2024年1月17日正式发布的新一代工具库。该产品旨在解决复杂AI工作流中的状态管理与任务协调问题，标志着LangChain在构建可编程AI系统领域迈出重要一步。
+
+## 二、核心特性分析
+1. **状态管理机制**：提供可追踪的对话与任务状态维护能力
+2. **工具调用集成**：支持灵活扩展外部工具与API连接
+3. **循环执行架构**：实现多步骤任务的自动化迭代处理
+4. **人机协同设计**：内置人工干预节点，支持混合智能工作流
+
+## 三、市场意义
+LangGraph填补了当前AI开发中复杂工作流编排的技术空白，其发布将显著降低构建具备记忆、推理与交互能力的AI应用门槛。该框架特别适用于需要多步骤决策、动态路径调整的商用场景。
+
+## 四、结论建议
+建议开发团队优先评估其在复杂对话系统、自动化流程引擎等场景的应用潜力，同时关注其与现有LangChain生态的兼容性。该技术有望成为企业级AI解决方案的重要基础设施组件。
+
+---
+**请审阅以上报告草案，确认信息准确性及结构完整性后，我将生成最终交付版本。**
+    check_result: 不达标：LangGraph报告缺少发布时间
+    review_round: 0
+================================= Tool Message =================================
+Name: human_review_report
+
+人工提出修改意见，回到质检环节
+================================== Ai Message ==================================
+
+调用工具：check_report_quality
+Tool Calls:
+  check_report_quality (manual_check_report_quality_5d32973f)
+ Call ID: manual_check_report_quality_5d32973f
+  Args:
+    draft_report: LangGraph Official Release Report
+1. Release Date: Jan 17, 2024
+2. Developer: LangChain
+3. Core Features: State management, tool calling, cyclic execution
+4. Application Scenario: Agent development
+================================= Tool Message =================================
+Name: check_report_quality
+
+报告检测结果:不达标：LangGraph报告缺少发布时间
+================================== Ai Message ==================================
+
+调用工具：human_review_report
+Tool Calls:
+  human_review_report (manual_human_review_report_cf62fbfe)
+ Call ID: manual_human_review_report_cf62fbfe
+  Args:
+    draft_report: LangGraph Official Release Report
+1. Release Date: Jan 17, 2024
+2. Developer: LangChain
+3. Core Features: State management, tool calling, cyclic execution
+4. Application Scenario: Agent development
+    check_result: 不达标：LangGraph报告缺少发布时间
+    review_round: 1
+================================== Ai Message ==================================
+
+调用工具：human_review_report
+Tool Calls:
+  human_review_report (manual_human_review_report_cf62fbfe)
+ Call ID: manual_human_review_report_cf62fbfe
+  Args:
+    draft_report: LangGraph Official Release Report
+1. Release Date: Jan 17, 2024
+2. Developer: LangChain
+3. Core Features: State management, tool calling, cyclic execution
+4. Application Scenario: Agent development
+    check_result: 不达标：LangGraph报告缺少发布时间
+    review_round: 1
+
+===== 最终状态 =====
+user_requirement: 请查询LangGraph发布时间，生成报告，并在最终交付前让human review一次。
+raw_data: LangGraph发布时间：2024年1月17日；所属公司：LangChain；核心特性：状态管理、工具调用、循环执行、人机协同。
+draft_report: LangGraph Official Release Report
+1. Release Date: Jan 17, 2024
+2. Developer: LangChain
+3. Core Features: State management, tool calling, cyclic execution
+4. Application Scenario: Agent development
+is_satisfied: False
+Num Messages:  12 Next:  ('tools',)
+Num Messages:  11 Next:  ('report_chatbot',)
+Num Messages:  10 Next:  ('tools',)
+Num Messages:  9 Next:  ('report_chatbot',)
+Num Messages:  8 Next:  ('tools',)
+Num Messages:  7 Next:  ('report_chatbot',)
+Num Messages:  6 Next:  ('tools',)
+Num Messages:  5 Next:  ('report_chatbot',)
+Num Messages:  4 Next:  ('tools',)
+Num Messages:  3 Next:  ('report_chatbot',)
+Num Messages:  2 Next:  ('tools',)
+Num Messages:  1 Next:  ('report_chatbot',)
+Num Messages:  0 Next:  ('__start__',)
+
+Process finished with exit code 0
