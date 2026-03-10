@@ -1,0 +1,23 @@
+[llm]
+model = "deepseek-chat"
+api_key = "sk-8f6367ea6d3748578985f9bc16dbfa50"
+temperature = 0.0
+
+[tavily]
+api_key = "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"
+max_results = 3
+
+[postgres]
+host = "localhost"
+port = 5432
+database = "langgraph_db"
+user = "postgres"
+password = "difyai123456"
+
+[report]
+data_mode = "hybrid"
+thread_id = "report_agent_1"
+recursion_limit = 40
+db_max_rows = 3
+max_review_rounds = 2
+seed_sql_path = "resource/report_agent_knowledge_seed.sql"
