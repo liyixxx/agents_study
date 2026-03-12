@@ -1,43 +1,32 @@
-﻿"""
-    langgraph 记忆部分增强,使用数据库存储
+"""
+langgraph 记忆部分增强,使用 PostgreSQL 存储 checkpoint
 """
 
+from pathlib import Path
+import sys
 from typing import TypedDict
+
 from typing_extensions import Annotated
 
-from langchain_deepseek import ChatDeepSeek
 from langgraph.checkpoint.postgres import PostgresSaver
 from langgraph.graph import StateGraph
 from langgraph.graph import add_messages
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.append(str(PROJECT_ROOT))
+
+from src.util.env_util import get_llm, get_postgres_connection_string
+
 class State(TypedDict):
     messages: Annotated[list, add_messages]
 
-
-DB_CONFIG = {
-    "host": "localhost",
-    "port": 5432,
-    "database": "langgraph_db",
-    "user": "postgres",
-    "password": "difyai123456",
-}
-
-
-def get_db_uri() -> str:
-    return (
-        f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}"
-        f"@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
-    )
-
-
+@classmethod
 def build_pg_graph(check_point: PostgresSaver):
-    """创建持久化记忆的graph"""
+    """创建持久化记忆的 graph。"""
     graph_builder = StateGraph(State)
-    llm = ChatDeepSeek(
-        model="deepseek-chat",
-        api_key="sk-8f6367ea6d3748578985f9bc16dbfa50",
-    )
+    llm = get_llm()
 
     def chatbot(state: State):
         return {"messages": [llm.invoke(state["messages"])]}
@@ -50,9 +39,9 @@ def build_pg_graph(check_point: PostgresSaver):
 
 
 def use_pg_graph():
-    """使用示例"""
+    """使用示例。"""
     session_config = {"configurable": {"thread_id": "user_session_001"}}
-    db_uri = get_db_uri()
+    db_uri = get_postgres_connection_string()
 
     print("开始会话")
 

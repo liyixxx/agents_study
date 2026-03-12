@@ -13,6 +13,7 @@ from langchain_tavily import TavilySearch
 ROOT_DIR = Path(__file__).resolve().parents[3]
 RESOURCE_DIR = ROOT_DIR / "resource"
 DEFAULT_CONFIG_PATH = RESOURCE_DIR / "runtime_config.toml"
+DEFAULT_REPORT_SEED_SQL_PATH = RESOURCE_DIR / "report_agent_knowledge_seed.sql"
 
 def _deep_get(config: dict[str, Any], *keys: str, default: Any = None) -> Any:
     """从配置字典中递归获取嵌套键的值"""
@@ -73,8 +74,37 @@ def get_postgres_connection_string(database: Optional[str] = None) -> str:
     db_name = database or str(postgres_config.get("database", "langgraph_db"))
     return f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
 
+def get_report_data_mode() -> str:
+    config = get_app_config()
+    return str(_deep_get(config, "report", "data_mode", default="hybrid")).lower()
 
-if __name__ == "__main__":
-    print(get_llm())
-    print(get_search_tool())
-    print(get_postgres_connection_string())
+
+def get_report_seed_sql_path() -> Path:
+    config = get_app_config()
+    raw_path = _deep_get(
+        config,
+        "report",
+        "seed_sql_path",
+        default=str(DEFAULT_REPORT_SEED_SQL_PATH),
+    )
+    return _resolve_path(raw_path)
+
+
+def get_report_thread_id() -> str:
+    config = get_app_config()
+    return str(_deep_get(config, "report", "thread_id", default="report_agent_1"))
+
+
+def get_report_recursion_limit() -> int:
+    config = get_app_config()
+    return int(_deep_get(config, "report", "recursion_limit", default=40))
+
+
+def get_report_max_rows() -> int:
+    config = get_app_config()
+    return int(_deep_get(config, "report", "db_max_rows", default=3))
+
+
+def get_report_max_review_rounds() -> int:
+    config = get_app_config()
+    return int(_deep_get(config, "report", "max_review_rounds", default=2))
