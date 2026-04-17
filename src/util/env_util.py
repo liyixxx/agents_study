@@ -10,7 +10,7 @@ from langchain_deepseek import ChatDeepSeek
 from langchain_tavily import TavilySearch
 
 # 配置文件路径
-ROOT_DIR = Path(__file__).resolve().parents[3]
+ROOT_DIR = Path(__file__).resolve().parents[2]
 RESOURCE_DIR = ROOT_DIR / "resource"
 DEFAULT_CONFIG_PATH = RESOURCE_DIR / "runtime_config.toml"
 DEFAULT_REPORT_SEED_SQL_PATH = RESOURCE_DIR / "report_agent_knowledge_seed.sql"
@@ -26,6 +26,7 @@ def _deep_get(config: dict[str, Any], *keys: str, default: Any = None) -> Any:
 
 
 def _resolve_path(value: str | Path, *, default_base: Path = ROOT_DIR) -> Path:
+    """解析配置文件路径"""
     path = Path(value)
     if path.is_absolute():
         return path
@@ -34,10 +35,12 @@ def _resolve_path(value: str | Path, *, default_base: Path = ROOT_DIR) -> Path:
 
 @lru_cache(maxsize=1)
 def get_app_config() -> dict[str, Any]:
+    """获取APP基础配置"""
     if not DEFAULT_CONFIG_PATH.exists():
         raise FileNotFoundError(f"Config file not found: {DEFAULT_CONFIG_PATH}")
     with DEFAULT_CONFIG_PATH.open("rb") as file:
         return tomllib.load(file)
+
 
 # 获取 LLM 实例
 def get_llm(model: Optional[str] = None, temperature: Optional[float] = None) -> ChatDeepSeek:
@@ -52,6 +55,7 @@ def get_llm(model: Optional[str] = None, temperature: Optional[float] = None) ->
         llm_kwargs["temperature"] = final_temperature
     return ChatDeepSeek(**llm_kwargs)
 
+
 # 获取 Tavily 搜索工具实例
 def get_search_tool(max_results: Optional[int] = None):
     config = get_app_config()
@@ -63,6 +67,7 @@ def get_search_tool(max_results: Optional[int] = None):
         tavily_api_key=tavily_config["api_key"],
     )
 
+
 # 获取 PostgreSQL 连接
 def get_postgres_connection_string(database: Optional[str] = None) -> str:
     config = get_app_config()
@@ -73,38 +78,3 @@ def get_postgres_connection_string(database: Optional[str] = None) -> str:
     port = int(postgres_config.get("port", 5432))
     db_name = database or str(postgres_config.get("database", "langgraph_db"))
     return f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
-
-def get_report_data_mode() -> str:
-    config = get_app_config()
-    return str(_deep_get(config, "report", "data_mode", default="hybrid")).lower()
-
-
-def get_report_seed_sql_path() -> Path:
-    config = get_app_config()
-    raw_path = _deep_get(
-        config,
-        "report",
-        "seed_sql_path",
-        default=str(DEFAULT_REPORT_SEED_SQL_PATH),
-    )
-    return _resolve_path(raw_path)
-
-
-def get_report_thread_id() -> str:
-    config = get_app_config()
-    return str(_deep_get(config, "report", "thread_id", default="report_agent_1"))
-
-
-def get_report_recursion_limit() -> int:
-    config = get_app_config()
-    return int(_deep_get(config, "report", "recursion_limit", default=40))
-
-
-def get_report_max_rows() -> int:
-    config = get_app_config()
-    return int(_deep_get(config, "report", "db_max_rows", default=3))
-
-
-def get_report_max_review_rounds() -> int:
-    config = get_app_config()
-    return int(_deep_get(config, "report", "max_review_rounds", default=2))
