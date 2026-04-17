@@ -3,7 +3,6 @@ Agentic AI
 解决 v1/v2 版本中的配置分散与数据源能力不足问题
 1. 抽取公共配置到 env_util。
 2. 将知识库与 graph checkpoint 统一切换到 PostgreSQL。
-3. 保留当前报告 Agent 的主流程，先完成工程化重构。
 """
 
 from __future__ import annotations
@@ -25,23 +24,19 @@ from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
 from langgraph.types import Command, interrupt
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.append(str(PROJECT_ROOT))
 
+from src.agentic_ai.cfg.report_cfg import Report
+
 from src.util.env_util import (
     get_llm,
     get_postgres_connection_string,
-    get_report_data_mode,
-    get_report_max_review_rounds,
-    get_report_max_rows,
-    get_report_recursion_limit,
-    get_report_seed_sql_path,
-    get_report_thread_id,
     get_search_tool,
 )
 
+default_report_cfg = Report()
 
 class ReportAgentState(TypedDict):
     messages: Annotated[List[AnyMessage], add_messages]
@@ -218,10 +213,10 @@ def _compose_raw_data(evidence_items: List[Dict[str, str]]) -> str:
 
 @lru_cache(maxsize=1)
 def _get_data_providers() -> List[DataProvider]:
-    mode = get_report_data_mode()
-    connection_string = get_postgres_connection_string()
-    seed_sql_path = get_report_seed_sql_path()
-    max_rows = get_report_max_rows()
+    mode = default_report_cfg.get_report_data_mode()
+    connection_string = default_report_cfg.get_postgres_connection_string()
+    seed_sql_path = default_report_cfg.get_report_seed_sql_path()
+    max_rows = default_report_cfg.get_report_max_rows()
 
     providers: List[DataProvider] = []
     if mode in {"db", "postgres", "hybrid"}:
@@ -239,8 +234,8 @@ def _get_data_providers() -> List[DataProvider]:
 
 @tool
 def fetch_business_data(
-    requirement: str,
-    tool_call_id: Annotated[str, InjectedToolCallId],
+        requirement: str,
+        tool_call_id: Annotated[str, InjectedToolCallId],
 ) -> Command:
     """获取报告所需的业务数据内容。"""
 
@@ -276,8 +271,8 @@ def fetch_business_data(
 
 @tool
 def save_draft_report(
-    draft_report: str,
-    tool_call_id: Annotated[str, InjectedToolCallId],
+        draft_report: str,
+        tool_call_id: Annotated[str, InjectedToolCallId],
 ) -> Command:
     """将生成的草稿转换为图状态。"""
     return Command(
@@ -293,8 +288,8 @@ def save_draft_report(
 
 @tool
 def check_report_quality(
-    draft_report: str,
-    tool_call_id: Annotated[str, InjectedToolCallId],
+        draft_report: str,
+        tool_call_id: Annotated[str, InjectedToolCallId],
 ) -> Command:
     """对报告进行规则化质量检查。"""
 
@@ -355,10 +350,10 @@ def check_report_quality(
 
 @tool
 def human_review_report(
-    draft_report: str,
-    check_result: str,
-    review_round: int,
-    tool_call_id: Annotated[str, InjectedToolCallId],
+        draft_report: str,
+        check_result: str,
+        review_round: int,
+        tool_call_id: Annotated[str, InjectedToolCallId],
 ) -> Command:
     """请求人工进行审核报告。"""
 
@@ -412,10 +407,10 @@ def _get_agent_llm():
 def _need_human_review(requirement: str, review_round: int) -> bool:
     requirement_lower = requirement.lower()
     return review_round == 0 and (
-        "human" in requirement_lower
-        or "review" in requirement_lower
-        or "人工" in requirement
-        or "审核" in requirement
+            "human" in requirement_lower
+            or "review" in requirement_lower
+            or "人工" in requirement
+            or "审核" in requirement
     )
 
 
@@ -444,7 +439,7 @@ def report_chatbot(state: ReportAgentState):
     quality_defects = state.get("quality_defects", [])
     is_satisfied = state.get("is_satisfied", False)
     review_round = state.get("review_round", 0)
-    max_human_review_rounds = get_report_max_review_rounds()
+    max_human_review_rounds = default_report_cfg.get_report_max_review_rounds()
 
     if not raw_data:
         return {
@@ -607,10 +602,10 @@ def _build_resume_payload(snapshot) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     config = {
-        "recursion_limit": get_report_recursion_limit(),
+        "recursion_limit": default_report_cfg.get_report_recursion_limit(),
         "configurable": {
-            "thread_id": get_report_thread_id(),
-        },
+            "thread_id": default_report_cfg.get_report_thread_id(),
+        }
     }
     user_input = "请查询LangGraph发布时间，生成报告，并在最终交付前让human review一次。"
 
