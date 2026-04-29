@@ -74,7 +74,11 @@ def get_postgres_connection_string(database: Optional[str] = None) -> str:
     postgres_config = _deep_get(config, "postgres", default={}) or {}
     user = quote_plus(str(postgres_config.get("user", "postgres")))
     password = quote_plus(str(postgres_config.get("password", "postgres")))
-    host = str(postgres_config.get("host", "localhost"))
+    host = str(postgres_config.get("host", "127.0.0.1")).strip()
     port = int(postgres_config.get("port", 5432))
     db_name = database or str(postgres_config.get("database", "langgraph_db"))
-    return f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
+    connect_timeout = int(postgres_config.get("connect_timeout", 5))
+    return (
+        f"postgresql://{user}:{password}@{host}:{port}/{db_name}"
+        f"?connect_timeout={connect_timeout}"
+    )
